@@ -1,0 +1,30 @@
+table
+{
+  text-align:left;
+  font-size:1.6rem;
+  width: 100%;
+
+  tbody
+  {
+    tr
+    {
+      border-bottom: 1px #ebebeb solid;
+
+      & > *
+      {
+        padding:1.5rem 0;
+      }
+
+      th
+      {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    
+      td
+      {
+        color: #5a5a5a;
+      }
+    }
+  }
+}

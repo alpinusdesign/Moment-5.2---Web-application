@@ -1,0 +1,42 @@
+html
+{
+  font-size:10px;
+  font-family: 'Roboto', sans-serif;
+  color:#444444;
+}
+
+h1
+{
+  font-size:3.4rem;
+  font-weight:bold;
+}
+
+h2
+{
+  font-size:2.6rem;
+}
+
+h3
+{
+  font-size:2.2rem;
+}
+
+body
+{
+  width:76rem;
+  margin:0 auto;
+}
+
+main
+{
+  & > *
+  {
+    margin: 4rem 0;
+  }
+}
+
+header
+{
+  text-align: center;
+  padding:3rem 0 2rem;
+}

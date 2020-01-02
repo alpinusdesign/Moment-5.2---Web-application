@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Moment 5 - REST-webbtjänster med PHP</title>
+  </head>
+  <body>
+    <header>
+      <h1>Moment 5</h1>
+      <h2>REST-webbtjänster med PHP</h2>
+    </header>
+    <main>
+      <div>
+        <h3>Lästa kurser</h3>
+        <table>
+          <tr>
+            <th>Kurskod</th>
+            <th>Kursnamn</th>
+            <th>Progression</th>
+            <th>Kursplan</th>
+          </tr>
+          <tr>
+            <td>123456</td>
+            <td>Datateknik 3</td>
+            <td>B</td>
+            <td>www.test.se</td>
+          </tr>
+          <tr>
+            <td>123456</td>
+            <td>Datateknik 3</td>
+            <td>B</td>
+            <td>www.test.se</td>
+          </tr>
+        </table>
+      </div>
+      <form>
+        <h3>Lägg till kurs</h3>
+        <label for="code">Kurskod</label>
+        <input type="text" id="code" />
+        <label for="name">Kursnamn</label>
+        <input type="text" id="name" />
+        <label for="progression">Progression</label>
+        <input type="text" id="progression" />
+        <label for="plan">Länk till kursplan</label>
+        <input type="text" id="plan" />
+        <input type="submit" value="Lägg till kurs"/>
+      </form>
+    </main>
+  </body>
+</html>
