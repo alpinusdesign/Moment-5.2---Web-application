@@ -19,25 +19,18 @@
     <main>
       <div>
         <h3>Lästa kurser</h3>
-        <table>
-          <tr>
-            <th>Kurskod</th>
-            <th>Kursnamn</th>
-            <th>Progression</th>
-            <th>Kursplan</th>
-          </tr>
-          <tr>
-            <td>123456</td>
-            <td>Datateknik 3</td>
-            <td>B</td>
-            <td>www.test.se</td>
-          </tr>
-          <tr>
-            <td>123456</td>
-            <td>Datateknik 3</td>
-            <td>B</td>
-            <td>www.test.se</td>
-          </tr>
+        <table id="courseTable">
+          <thead id="courseTableHead">
+            <tr>
+              <th>Kurskod</th>
+              <th>Kursnamn</th>
+              <th>Progression</th>
+              <th>Kursplan</th>
+            </tr>
+          </thead>
+          <tbody id="courseTableBody">
+
+          </tbody>
         </table>
       </div>
       <div id="formSection">
@@ -47,11 +40,11 @@
           <li id="deleteToggle">Radera kurs</li id="deleteToggle">
         </ul>
         <form id="createForm" class="active">
-          <label for="code">Kurskod</label>
+          <label for="code">Kurskod *</label>
           <input type="text" id="createCode" name="createCode"/>
-          <label for="name">Kursnamn</label>
+          <label for="name">Kursnamn *</label>
           <input type="text" id="createName" name="createName"/>
-          <label for="progression">Progression</label>
+          <label for="progression">Progression *</label>
           <input type="text" id="createProgression" name="createProgression"/>
           <label for="plan">Länk till kursplan</label>
           <input type="text" id="createPlan" name="createPlan"/>
@@ -59,18 +52,21 @@
         </form>
         <form id="updateForm">
           <label for="code">Kurskod</label>
-          <input type="text" id="updateCode" name="updateCode"/>
-          <label for="name">Kursnamn</label>
+          <select id="updateCode" name="updateCode">
+          </select>
+          <label for="name">Kursnamn *</label>
           <input type="text" id="updateName" name="updateName"/>
-          <label for="progression">Progression</label>
+          <label for="progression">Progression *</label>
           <input type="text" id="updateProgression" name="updateProgression"/>
           <label for="plan">Länk till kursplan</label>
           <input type="text" id="updatePlan" name="updatePlan"/>
-          <input type="submit" value="Updatera kurs"/>
+          <input type="submit" value="Uppdatera kurs"/>
         </form>
         <form id="deleteForm">
           <label for="code">Kurskod</label>
-          <input type="text" id="deleteCode" name="deleteCode"/>
+          <select id="deleteCode" name="deleteCode">
+
+          </select>
           <input type="submit" value="Radera kurs"/>
         </form>
       </div>

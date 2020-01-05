@@ -41,8 +41,10 @@ function htmlTask()
 function jsTask()
 {
   return gulp.src(files.jsPath)
+  .pipe(sourcemaps.init())
   .pipe(concat('main.js'))
   .pipe(terser())
+  .pipe(sourcemaps.write('./maps'))
   .pipe(gulp.dest('pub/js'))
   .pipe(browserSync.stream());
 }

@@ -4,104 +4,121 @@
 const url = "http://localhost/rest/index.php/";
 
 /* = Variables = */
-/* - Form navigation-variables - */
-const createToggle = document.getElementById("createToggle");
-const updateToggle = document.getElementById("updateToggle");
-const deleteToggle = document.getElementById("deleteToggle");
-const toggles = [createToggle, updateToggle, deleteToggle];
+/* - Form navigation-bindings - */
+const createToggleEl = document.getElementById("createToggle");
+const updateToggleEl = document.getElementById("updateToggle");
+const deleteToggleEl = document.getElementById("deleteToggle");
 
-/* - Form variables - */
-const createForm = document.getElementById("createForm");
-const updateForm = document.getElementById("updateForm");
-const deleteForm = document.getElementById("deleteForm");
-const forms = [createForm, updateForm, deleteToggle];
+/* - Form bindings - */
+const createFormEl = document.getElementById("createForm");
+const updateFormEl = document.getElementById("updateForm");
+const deleteFormEl = document.getElementById("deleteForm");
 
-/* - Form input-variables - */
+/* - Form input-bindings - */
 /* - Create-form - */
-const createCode = document.getElementById("createCode");
-const createName = document.getElementById("createName");
-const createProgression = document.getElementById("createProgression");
-const createPlan = document.getElementById("createPlan");
+const createCodeEl = document.getElementById("createCode");
+const createNameEl = document.getElementById("createName");
+const createProgressionEl = document.getElementById("createProgression");
+const createPlanEl = document.getElementById("createPlan");
 /* - Update-form - */
-const updateCode = document.getElementById("updateCode");
-const updateName = document.getElementById("updateName");
-const updateProgression = document.getElementById("updateProgression");
-const updatePlan = document.getElementById("updatePlan");
+const updateCodeEl = document.getElementById("updateCode");
+const updateNameEl = document.getElementById("updateName");
+const updateProgressionEl = document.getElementById("updateProgression");
+const updatePlanEl = document.getElementById("updatePlan");
+/* - Delete-form - */
+const deleteCodeEl = document.getElementById("deleteCode");
 
 
+/* - Table-binding - */
+const courseListEl = document.getElementById("courseTableBody");
 
-function toggleElements(...[...args])
-{
-    for(let i = 0; i < arguments.length; i++)
+/* - Functions - */
+async function getCourses() {
+  fetch(url)
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("An error has occured. Status code: " + response.status);
+        return;
+      }
+      response.json().then(data => {
+        displayCourses(data);
+      });
+    })
+    .catch(function(err) {
+      console.log("Fatal error: ", err);
+    });
+}
+
+function displayCourses(courses) {
+  // Empty the table-body element.
+  courseListEl.innerHTML = "";
+  // Reset the update-form's select element.
+  updateCodeEl.innerHTML = "";
+  // Reset the delete-form's select element.
+  deleteCodeEl.innerHTML = "";
+
+  courses.forEach(course => {
+    /* - Update table - */
+    // Add new row to table.
+    courseListEl.insertRow();
+    // Insert row data.
+    if(course.PlanURL !== null) // If a URL for the course plan has been entered, print it. Otherwise, print a filler text.
     {
-
+        courseListEl.lastChild.innerHTML = "<td>"+ course.Code + "</td>" + "<td>" + course.Name + "</td>" + "<td>" + course.Progression + "</td>" + "<td><a href=" + course.PlanURL + ">" + course.PlanURL +"</a></td>";
+    }
+    else
+    {
+        courseListEl.lastChild.innerHTML = "<td>"+ course.Code + "</td>" + "<td>" + course.Name + "</td>" + "<td>" + course.Progression + "</td><td>Ej angiven </td>";
     }
 
-    createToggle.classList.add("active");
-    updateToggle.classList.remove("active");
-    deleteToggle.classList.remove("active");
-    // Toggle forms.
-    createForm.classList.add("active");
-    updateForm.classList.remove("active");
-    deleteForm.classList.remove("active");
-};
+    /* - Update the update form's select element. */
+    updateCodeEl.innerHTML += "<option value" + course.Code + ">" + course.Code + "</option>";
 
-
-
+    /* - Update the delete form's select element. */
+    deleteCodeEl.innerHTML += "<option value" + course.Code + ">" + course.Code + "</option>";
+  });
+}
 
 /* = Event listeners = */
 /* - Form navigation toggle - */
-
-createToggle.addEventListener("click",function()
-{
-    // Toggle nav-elements.
-    createToggle.classList.add("active");
-    updateToggle.classList.remove("active");
-    deleteToggle.classList.remove("active");
-    // Toggle forms.
-    createForm.classList.add("active");
-    updateForm.classList.remove("active");
-    deleteForm.classList.remove("active");
+createToggle.addEventListener("click", function(e) {
+  // Toggle nav-elements.
+  e.target.classList.add("active");
+  updateToggleEl.classList.remove("active");
+  deleteToggleEl.classList.remove("active");
+  // Toggle forms.
+  createFormEl.classList.add("active");
+  updateFormEl.classList.remove("active");
+  deleteFormEl.classList.remove("active");
 });
 
-
-createToggle.addEventListener("click",function()
-{
-    // Toggle nav-elements.
-    createToggle.classList.add("active");
-    updateToggle.classList.remove("active");
-    deleteToggle.classList.remove("active");
-    // Toggle forms.
-    createForm.classList.add("active");
-    updateForm.classList.remove("active");
-    deleteForm.classList.remove("active");
+updateToggle.addEventListener("click", function(e) {
+  // Toggle nav-elements.
+  e.target.classList.add("active");
+  createToggleEl.classList.remove("active");
+  deleteToggleEl.classList.remove("active");
+  // Toggle forms.
+  updateFormEl.classList.add("active");
+  createFormEl.classList.remove("active");
+  deleteFormEl.classList.remove("active");
 });
 
-updateToggle.addEventListener("click",function()
-{
-    // Toggle nav-elements.
-    updateToggle.classList.add("active");
-    createToggle.classList.remove("active");
-    deleteToggle.classList.remove("active");
-    // Toggle forms.
-    updateForm.classList.add("active");
-    createForm.classList.remove("active");
-    deleteForm.classList.remove("active");
+deleteToggle.addEventListener("click", function(e) {
+  // Toggle nav-elements.
+  e.target.classList.add("active");
+  updateToggleEl.classList.remove("active");
+  createToggleEl.classList.remove("active");
+  // Toggle forms.
+  deleteFormEl.classList.add("active");
+  updateFormEl.classList.remove("active");
+  createFormEl.classList.remove("active");
 });
 
-deleteToggle.addEventListener("click",function()
-{
-    // Toggle nav-elements.
-    deleteToggle.classList.add("active");
-    updateToggle.classList.remove("active");
-    createToggle.classList.remove("active");
-    // Toggle forms.
-    deleteForm.classList.add("active");
-    updateForm.classList.remove("active");
-    createForm.classList.remove("active");
+document.addEventListener("DOMContentLoaded", function() {
+  getCourses();
 });
 
-
+/*
 document.getElementById("createForm").addEventListener("submit", function(e)
 {
     e.preventDefault();
@@ -126,3 +143,4 @@ document.getElementById("createForm").addEventListener("submit", function(e)
         console.log("Fatal error: ", err);
     });
 });
+*/
