@@ -48,7 +48,8 @@
             text-transform: uppercase;
         }
 
-        input
+        input,
+        select
         {
             display:block;
             font-size:2rem;
@@ -62,6 +63,11 @@
             {
                 padding:.5rem 0;
             }
+        }
+
+        option
+        {
+            text-align: center;
         }
 
     }
