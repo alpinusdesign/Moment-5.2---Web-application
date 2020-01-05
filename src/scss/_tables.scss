@@ -1,3 +1,4 @@
+/* - Table - */
 table
 {
   text-align:left;
@@ -8,7 +9,7 @@ table
   {
     tr
     {
-      border-bottom: 1px #ebebeb solid;
+      border-bottom:1px #ebebeb solid;
 
       & > *
       {
@@ -23,7 +24,7 @@ table
     
       td
       {
-        color: #5a5a5a;
+        color:#5a5a5a;
       }
     }
   }

@@ -40,18 +40,41 @@
           </tr>
         </table>
       </div>
-      <form>
-        <h3>Lägg till kurs</h3>
-        <label for="code">Kurskod</label>
-        <input type="text" id="coursecode" name="coursecode"/>
-        <label for="name">Kursnamn</label>
-        <input type="text" id="coursename" name="coursename"/>
-        <label for="progression">Progression</label>
-        <input type="text" id="courseprogression" name="courseprogression"/>
-        <label for="plan">Länk till kursplan</label>
-        <input type="text" id="courseplan" name="courseplan"/>
-        <input type="submit" value="Lägg till kurs"/>
-      </form>
+      <div id="formSection">
+        <ul id="formNav">
+          <li class="active" id="createToggle">Lägg till kurs</li>
+          <li id="updateToggle">Uppdatera kurs</li id="updateToggle">
+          <li id="deleteToggle">Radera kurs</li id="deleteToggle">
+        </ul>
+        <form id="createForm" class="active">
+          <label for="code">Kurskod</label>
+          <input type="text" id="createCode" name="createCode"/>
+          <label for="name">Kursnamn</label>
+          <input type="text" id="createName" name="createName"/>
+          <label for="progression">Progression</label>
+          <input type="text" id="createProgression" name="createProgression"/>
+          <label for="plan">Länk till kursplan</label>
+          <input type="text" id="createPlan" name="createPlan"/>
+          <input type="submit" value="Lägg till kurs"/>
+        </form>
+        <form id="updateForm">
+          <label for="code">Kurskod</label>
+          <input type="text" id="updateCode" name="updateCode"/>
+          <label for="name">Kursnamn</label>
+          <input type="text" id="updateName" name="updateName"/>
+          <label for="progression">Progression</label>
+          <input type="text" id="updateProgression" name="updateProgression"/>
+          <label for="plan">Länk till kursplan</label>
+          <input type="text" id="updatePlan" name="updatePlan"/>
+          <input type="submit" value="Updatera kurs"/>
+        </form>
+        <form id="deleteForm">
+          <label for="code">Kurskod</label>
+          <input type="text" id="deleteCode" name="deleteCode"/>
+          <input type="submit" value="Radera kurs"/>
+        </form>
+      </div>
     </main>
+    <script src="js/main.js"></script>
   </body>
 </html>
