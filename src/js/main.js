@@ -28,7 +28,6 @@ const updatePlanEl = document.getElementById("updatePlan");
 /* - Delete-form - */
 const deleteCodeEl = document.getElementById("deleteCode");
 
-
 /* - Table-binding - */
 const courseListEl = document.getElementById("courseTableBody");
 
@@ -49,33 +48,54 @@ async function getCourses() {
     });
 }
 
+/* - Displays courses - */
 function displayCourses(courses) {
-  // Empty the table-body element.
-  courseListEl.innerHTML = "";
-  // Reset the update-form's select element.
-  updateCodeEl.innerHTML = "";
-  // Reset the delete-form's select element.
-  deleteCodeEl.innerHTML = "";
+  courseListEl.innerHTML = ""; // Empty the table-body element.
+  updateCodeEl.innerHTML = ""; // Reset the update-form's select element.
+  deleteCodeEl.innerHTML = ""; // Reset the delete-form's select element.
 
   courses.forEach(course => {
     /* - Update table - */
-    // Add new row to table.
-    courseListEl.insertRow();
-    // Insert row data.
-    if(course.PlanURL !== null) // If a URL for the course plan has been entered, print it. Otherwise, print a filler text.
-    {
-        courseListEl.lastChild.innerHTML = "<td>"+ course.Code + "</td>" + "<td>" + course.Name + "</td>" + "<td>" + course.Progression + "</td>" + "<td><a href=" + course.PlanURL + ">" + course.PlanURL +"</a></td>";
-    }
-    else
-    {
-        courseListEl.lastChild.innerHTML = "<td>"+ course.Code + "</td>" + "<td>" + course.Name + "</td>" + "<td>" + course.Progression + "</td><td>Ej angiven </td>";
+    courseListEl.insertRow(); // Add new row to table.
+
+    if (course.PlanURL !== null) {
+      // Insert row data.
+      courseListEl.lastChild.innerHTML =
+        "<td>" +
+        course.Code +
+        "</td>" +
+        "<td>" +
+        course.Name +
+        "</td>" +
+        "<td>" +
+        course.Progression +
+        "</td>" +
+        "<td><a href=" +
+        course.PlanURL +
+        ">" +
+        course.PlanURL +
+        "</a></td>";
+    } else {
+      // Print a filler text if no syllabus-URL has been entered.
+      courseListEl.lastChild.innerHTML =
+        "<td>" +
+        course.Code +
+        "</td>" +
+        "<td>" +
+        course.Name +
+        "</td>" +
+        "<td>" +
+        course.Progression +
+        "</td><td>Ej angiven </td>";
     }
 
     /* - Update the update form's select element. */
-    updateCodeEl.innerHTML += "<option value" + course.Code + ">" + course.Code + "</option>";
+    updateCodeEl.innerHTML +=
+      "<option value" + course.Code + ">" + course.Code + "</option>";
 
     /* - Update the delete form's select element. */
-    deleteCodeEl.innerHTML += "<option value" + course.Code + ">" + course.Code + "</option>";
+    deleteCodeEl.innerHTML +=
+      "<option value" + course.Code + ">" + course.Code + "</option>";
   });
 }
 
@@ -115,6 +135,31 @@ deleteToggle.addEventListener("click", function(e) {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
+  /* */
+  deleteFormEl.addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent the form from being submited the default way.
+
+    console.log(deleteCodeEl.value);
+
+    fetch(url, {
+      method: "DELETE",
+      body: JSON.stringify({
+        code: deleteCodeEl.value
+      })
+    })
+      .then(function(response) {
+        if (response.status !== 200) {
+          console.log("An error has occured. Status code: " + response.status);
+          return;
+        }
+        response.json().then(data => {
+          displayCourses(data); // Display courses on successfull fetch.
+        });
+      })
+      .catch(function(err) {
+        console.log("Fatal error: ", err);
+      });
+  });
   getCourses();
 });
 
