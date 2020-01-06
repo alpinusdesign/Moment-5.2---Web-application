@@ -31,23 +31,6 @@ const deleteCodeEl = document.getElementById("deleteCode");
 /* - Table-binding - */
 const courseListEl = document.getElementById("courseTableBody");
 
-/* - Functions - */
-async function getCourses() {
-  fetch(url)
-    .then(function(response) {
-      if (response.status !== 200) {
-        console.log("An error has occured. Status code: " + response.status);
-        return;
-      }
-      response.json().then(data => {
-        displayCourses(data);
-      });
-    })
-    .catch(function(err) {
-      console.log("Fatal error: ", err);
-    });
-}
-
 /* - Displays courses - */
 function displayCourses(courses) {
   courseListEl.innerHTML = ""; // Empty the table-body element.
@@ -58,36 +41,22 @@ function displayCourses(courses) {
     /* - Update table - */
     courseListEl.insertRow(); // Add new row to table.
 
-    if (course.PlanURL !== null) {
-      // Insert row data.
-      courseListEl.lastChild.innerHTML =
-        "<td>" +
-        course.Code +
-        "</td>" +
-        "<td>" +
-        course.Name +
-        "</td>" +
-        "<td>" +
-        course.Progression +
-        "</td>" +
-        "<td><a href=" +
-        course.PlanURL +
-        ">" +
-        course.PlanURL +
-        "</a></td>";
-    } else {
-      // Print a filler text if no syllabus-URL has been entered.
-      courseListEl.lastChild.innerHTML =
-        "<td>" +
-        course.Code +
-        "</td>" +
-        "<td>" +
-        course.Name +
-        "</td>" +
-        "<td>" +
-        course.Progression +
-        "</td><td>Ej angiven </td>";
-    }
+    // Insert row data.
+    courseListEl.lastChild.innerHTML =
+      "<td>" +
+      course.Code +
+      "</td>" +
+      "<td>" +
+      course.Name +
+      "</td>" +
+      "<td>" +
+      course.Progression +
+      "</td>" +
+      "<td><a href=" +
+      course.PlanURL +
+      ">" +
+      course.PlanURL +
+      "</a></td>";
 
     /* - Update the update form's select element. */
     updateCodeEl.innerHTML +=
@@ -134,58 +103,102 @@ deleteToggle.addEventListener("click", function(e) {
   createFormEl.classList.remove("active");
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-  /* */
-  deleteFormEl.addEventListener("submit", function(e) {
-    e.preventDefault(); // Prevent the form from being submited the default way.
+/* - Delete course - */
+deleteFormEl.addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent the form from being submited the default way.
 
-    console.log(deleteCodeEl.value);
-
-    fetch(url, {
-      method: "DELETE",
-      body: JSON.stringify({
-        code: deleteCodeEl.value
-      })
+  fetch(url, {
+    method: "DELETE",
+    body: JSON.stringify({
+      code: deleteCodeEl.value
     })
-      .then(function(response) {
-        if (response.status !== 200) {
-          console.log("An error has occured. Status code: " + response.status);
-          return;
-        }
-        response.json().then(data => {
-          displayCourses(data); // Display courses on successfull fetch.
-        });
-      })
-      .catch(function(err) {
-        console.log("Fatal error: ", err);
+  })
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("An error has occured. Status code: " + response.status);
+        return;
+      }
+      response.json().then(data => {
+        displayCourses(data); // Display courses on successfull fetch.
       });
-  });
-  getCourses();
-});
-
-/*
-document.getElementById("createForm").addEventListener("submit", function(e)
-{
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append();
-    
-    fetch(url, {
-        method: 'post',
-        body: 'formData'
-    }).then(
-        function (response){
-            if(response.status !== 200)
-            {
-                console.log(response.status);
-                return;
-            }
-            response.json().then(function(data){
-                displayCourses(data);
-            });
-        }
-    ).catch(function(err){
-        console.log("Fatal error: ", err);
+    })
+    .catch(function(err) {
+      console.log("Fatal error: ", err);
     });
 });
-*/
+
+/* - Post course - */
+createFormEl.addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent the form from being submited the default way.
+
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      code: document.getElementById("createCode").value,
+      name: document.getElementById("createName").value,
+      progression: document.getElementById("createProgression").value,
+      plan: document.getElementById("createPlan").value
+    })
+  })
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("An error has occured. Status code: " + response.status);
+        return;
+      }
+      response.json().then(data => {
+        displayCourses(data); // Display courses on successfull fetch.
+      });
+    })
+    .catch(function(err) {
+      console.log("Fatal error: ", err);
+    });
+});
+
+
+
+/* - Put course - */
+updateFormEl.addEventListener("submit", function(e) {
+  e.preventDefault(); // Prevent the form from being submited the default way.
+
+  fetch(url, {
+    method: "PUT",
+    body: JSON.stringify({
+      code: document.getElementById("updateCode").value,
+      name: document.getElementById("updateName").value,
+      progression: document.getElementById("updateProgression").value,
+      plan: document.getElementById("updatePlan").value
+    })
+  })
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("An error has occured. Status code: " + response.status);
+        return;
+      }
+      response.json().then(data => {
+        console.log("test");
+        displayCourses(data); // Display courses on successfull fetch.
+      });
+    })
+    .catch(function(err) {
+      console.log("Fatal error: ", err);
+    });
+});
+
+
+
+/* - Load courses when DOM is loaded. - */
+document.addEventListener("DOMContentLoaded", function() {
+  fetch(url)
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("An error has occured. Status code: " + response.status);
+        return;
+      }
+      response.json().then(data => {
+        displayCourses(data);
+      });
+    })
+    .catch(function(err) {
+      console.log("Fatal error: ", err);
+    });
+});
