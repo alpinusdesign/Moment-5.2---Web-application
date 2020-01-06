@@ -1,7 +1,7 @@
 "use strict";
 
 // API-URL.
-const url = "http://localhost/rest/index.php/";
+const url = "http://alpinusdesign.se/DT173G/moment%205/index.php";
 
 /* ============= */
 /* = Variables = */
@@ -21,12 +21,12 @@ const deleteFormEl = document.getElementById("deleteForm");
 const createCodeEl = document.getElementById("createCode");
 const createNameEl = document.getElementById("createName");
 const createProgressionEl = document.getElementById("createProgression");
-const createPlanEl = document.getElementById("createPlan");
+const createSyllabusEl = document.getElementById("createSyllabus");
 /* - Update-form inputs - */
 const updateCodeEl = document.getElementById("updateCode");
 const updateNameEl = document.getElementById("updateName");
 const updateProgressionEl = document.getElementById("updateProgression");
-const updatePlanEl = document.getElementById("updatePlan");
+const updateSyllabusEl = document.getElementById("updateSyllabus");
 /* - Delete-form inputs - */
 const deleteCodeEl = document.getElementById("deleteCode");
 
@@ -47,22 +47,17 @@ function displayCourses(courses) {
     /* - Update table - */
     courseListEl.insertRow(); // Add new row to table.
 
+ 
     // Insert row data.
-    courseListEl.lastChild.innerHTML =
-      "<td>" +
-      course.Code +
-      "</td>" +
-      "<td>" +
-      course.Name +
-      "</td>" +
-      "<td>" +
-      course.Progression +
-      "</td>" +
-      "<td><a href=" +
-      course.PlanURL +
-      ">" +
-      course.PlanURL +
-      "</a></td>";
+    courseListEl.lastChild.innerHTML = "<td>" + course.Code + "</td>" +
+    "<td>" + course.Name + "</td>" +
+    "<td>" + course.Progression + "</td>";
+
+    // Append syllabus-link to table row if it contains data.
+    if(course.SyllabusURL)
+    {
+      courseListEl.lastChild.innerHTML += "<td><a href=" + course.SyllabusURL + " target='_blank'>Länk till kursplan</a></td>";
+    }
 
     /* - Update the update form's select element. */
     updateCodeEl.innerHTML +=
@@ -142,7 +137,7 @@ createFormEl.addEventListener("submit", function(e) {
       code: createCodeEl.value,
       name: createNameEl.value,
       progression: createProgressionEl.value,
-      plan: createPlanEl.value
+      syllabus: createSyllabusEl.value
     })
   })
     .then(function(response) {
@@ -165,7 +160,7 @@ updateFormEl.addEventListener("submit", function(e) {
       code: updateCodeEl.value,
       name: updateNameEl.value,
       progression: updateProgressionEl.value,
-      plan: updatePlanEl.value
+      syllabus: updateSyllabusEl.value
     })
   })
     .then(function(response) {
