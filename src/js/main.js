@@ -1,7 +1,7 @@
 "use strict";
 
 // API-URL.
-const url = "http://alpinusdesign.se/DT173G/moment%205/index.php";
+const url = "http://alpinusdesign.se/DT173G/moment%205.1/index.php";
 
 /* ============= */
 /* = Variables = */
