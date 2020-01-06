@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
       rel="stylesheet"
@@ -17,6 +18,7 @@
       <h2>REST-webbtjänster med PHP</h2>
     </header>
     <main>
+      <!-- Table-container -->
       <div>
         <h3>Lästa kurser</h3>
         <table id="courseTable">
@@ -29,39 +31,46 @@
             </tr>
           </thead>
           <tbody id="courseTableBody">
-
           </tbody>
         </table>
       </div>
+
+      <!-- CRUD-form container -->
       <div id="formSection">
+        <!-- CRUD-form navigation -->
         <ul id="formNav">
           <li class="active" id="createToggle">Lägg till kurs</li>
           <li id="updateToggle">Uppdatera kurs</li id="updateToggle">
           <li id="deleteToggle">Radera kurs</li id="deleteToggle">
         </ul>
+        <!-- CRUD-form: Create -->
         <form id="createForm" class="active">
           <label for="code">Kurskod *</label>
-          <input type="text" id="createCode" name="createCode"/>
+          <input type="text" id="createCode" name="createCode" minlength = "6" maxlength = "6" required/>
           <label for="name">Kursnamn *</label>
-          <input type="text" id="createName" name="createName"/>
+          <input type="text" id="createName" name="createName" required/>
           <label for="progression">Progression *</label>
-          <input type="text" id="createProgression" name="createProgression"/>
+          <input type="text" id="createProgression" name="createProgression" maxlength = "1" required/>
           <label for="plan">Länk till kursplan</label>
           <input type="text" id="createPlan" name="createPlan"/>
           <input type="submit" value="Lägg till kurs"/>
         </form>
+
+        <!-- CRUD-form: Update -->
         <form id="updateForm">
           <label for="code">Kurskod</label>
           <select id="updateCode" name="updateCode">
           </select>
           <label for="name">Kursnamn *</label>
-          <input type="text" id="updateName" name="updateName"/>
+          <input type="text" id="updateName" name="updateName" required/>
           <label for="progression">Progression *</label>
-          <input type="text" id="updateProgression" name="updateProgression"/>
+          <input type="text" id="updateProgression" name="updateProgression" maxlength = "1" maxlength = "1" required/>
           <label for="plan">Länk till kursplan</label>
           <input type="text" id="updatePlan" name="updatePlan"/>
           <input type="submit" value="Uppdatera kurs"/>
         </form>
+
+        <!-- CRUD-form: Delete -->
         <form id="deleteForm">
           <label for="code">Kurskod</label>
           <select id="deleteCode" name="deleteCode">
